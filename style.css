@@ -1,10 +1,11 @@
-/* ==========================================================
-   MovieHub - Movie Booking System
-   Developed By: Ashutosh Kukreti
-   Tech Stack: HTML, CSS, JavaScript
-   ========================================================== */
+/* ═══════════════════════════════════════════════════════════
+   CineVerse — Premium Movie Booking System
+   Author: CineVerse UI Team
+   Stack:  Pure HTML · CSS · JavaScript (no frameworks)
+   ═══════════════════════════════════════════════════════════ */
+
 /* ─────────────────────────────────────────────
-   CSS CUSTOM PROPERTIES
+   CSS CUSTOM PROPERTIES (Design Tokens)
 ───────────────────────────────────────────── */
 :root {
   /* Colors */
@@ -464,22 +465,33 @@ input, button { outline: none; }
   position: sticky;
   top: 70px;
   z-index: 800;
-  padding: 1rem 0;
-  background: rgba(8,8,16,0.85);
+  padding: 0.75rem 0;
+  background: rgba(8,8,16,0.92);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--glass-border);
+  /* let the bar grow naturally with its content — no fixed height */
 }
 .filter-bar .container {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem;
+  flex-direction: column;   /* stack search and filters vertically */
+  gap: 0.65rem;
+}
+
+/* On desktop keep them side by side */
+@media (min-width: 640px) {
+  .filter-bar .container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
 }
 
 .search-wrap {
   position: relative;
   flex: 1 1 280px;
   max-width: 420px;
+  width: 100%;
 }
 .search-icon {
   position: absolute;
@@ -524,8 +536,24 @@ input, button { outline: none; }
 .genre-filters {
   display: flex;
   gap: 0.5rem;
-  flex-wrap: wrap;
   align-items: center;
+  /* scroll sideways on mobile — no wrapping, no overflow into cards */
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;       /* hide scrollbar on Firefox */
+  padding-bottom: 2px;         /* tiny bottom space so pill shadows aren't cut */
+  width: 100%;
+}
+.genre-filters::-webkit-scrollbar { display: none; } /* hide scrollbar on Chrome/Safari */
+
+/* On desktop let them wrap normally */
+@media (min-width: 640px) {
+  .genre-filters {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    width: auto;
+  }
 }
 .genre-btn {
   padding: 0.42rem 1rem;
